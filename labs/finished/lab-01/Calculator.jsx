@@ -10,7 +10,11 @@ Pass values into CalculatorDisplay for
 function Calculator() {
 	return (
 		<div>
-			<CalculatorDisplay />
+			<CalculatorDisplay
+				lValue={5}
+				rValue={10}
+				operator="+"
+			/>
 		</div>
 	);
 }
