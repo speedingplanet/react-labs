@@ -11,8 +11,8 @@ function App() {
 				<h1>React Labs</h1>
 			</header>
 			<BrowserRouter>
-				<nav>
-					<ul className="navbar">
+				<nav className="navbar">
+					<ul>
 						<li>
 							<Link to="/">Home</Link>
 						</li>
@@ -21,6 +21,7 @@ function App() {
 						</li>
 					</ul>
 				</nav>
+				<hr style={{marginTop: '5px'}} />
 				<Routes>
 					<Route
 						path="/"
