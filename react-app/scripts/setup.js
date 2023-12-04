@@ -5,29 +5,29 @@ import process from 'node:process';
 import path from 'node:path';
 import fs from 'fs-extra';
 
-/*
- * TODOs
- *
- * What if someone passes "lab-01" instead of "1" or "01"
- */
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 let beginFolderName = 'begin';
 let finishedFolderName = 'finished';
 let labsParentPrefix = '../../labs';
-let labsLocalPrefix = '../labs';
-let backupPrefix = `../tmp/backup-${Date.now()}`;
+let labsLocalPrefix = '../src/labs';
+let labManager = 'LabManager.jsx';
 
-async function clean() {
+// Should be YYYY-MM-DDTHH-mm-SS-MS without a timezone
+let today = new Date().toISOString().replace(/[-:.]/g, '-').slice(0, 23);
+
+let backupPrefix = `../backups/backup-${today}`;
+
+async function clean(directory, relative = false) {
 	try {
-		let target = path.resolve(__dirname, labsLocalPrefix);
+		let target = directory;
+		if (relative) target = path.resolve(__dirname, directory);
 		let result = await fs.emptyDir(target);
 		console.log(`Successfully cleaned ${target}`);
 		return result;
 	} catch (err) {
-		console.error(`clean(): ${err.message}`);
+		console.error(`clean(${directory}): ${err.message}`);
 		throw err;
 	}
 }
@@ -39,7 +39,7 @@ async function backup() {
 		await fs.copy(src, dest, {
 			filter: (src) => !src.includes(finishedFolderName),
 		});
-		await clean();
+		await clean(src);
 		console.log(`Successfully backed up the labs folder to ${dest}`);
 	} catch (err) {
 		console.error(`backup(): ${err.message}`);
@@ -52,7 +52,12 @@ async function backup() {
  */
 async function begin(labNumber) {
 	let labDir = `lab-${labNumber}`;
-	let labsFrom = path.resolve(__dirname, labsParentPrefix, beginFolderName, labDir);
+	let labsFrom = path.resolve(
+		__dirname,
+		labsParentPrefix,
+		beginFolderName,
+		labDir,
+	);
 	try {
 		let labsFromExists = await fs.exists(labsFrom);
 		if (!labsFromExists) throw new Error(`Could not find lab ${labNumber}`);
@@ -71,15 +76,45 @@ async function begin(labNumber) {
  */
 async function finish(labNumber) {
 	let labDir = `lab-${labNumber}`;
-	let labsFrom = path.resolve(__dirname, labsParentPrefix, finishedFolderName, labDir);
+	let labsFrom = path.resolve(
+		__dirname,
+		labsParentPrefix,
+		finishedFolderName,
+		labDir,
+	);
 	try {
 		let labsFromExists = await fs.exists(labsFrom);
 		if (!labsFromExists) throw new Error(`Could not find lab ${labNumber}`);
-		let labsTo = path.resolve(__dirname, labsLocalPrefix, finishedFolderName, labDir);
-		await fs.copy(labsFrom, labsTo);
+		let labsTo = path.resolve(__dirname, labsLocalPrefix, finishedFolderName);
+		await fs.copy(labsFrom, labsTo, {
+			filter: (src) => !src.includes(labManager),
+		});
+		let labManagerTo = path.resolve(labsTo, '..', labManager);
+		let labManagerFrom = path.resolve(labsFrom, labManager);
+		await fs.copy(labManagerFrom, labManagerTo);
 		console.log(`Successfully copied the solution for ${labDir}`);
 	} catch (err) {
 		console.error(`finish(): ${err.message}`);
+	}
+}
+
+async function save(labNumber, beginFinish) {
+	let labDir = `lab-${labNumber}`;
+	let labsTo = path.resolve(
+		__dirname,
+		labsParentPrefix,
+		beginFinish === 'begin' ? beginFolderName : finishedFolderName,
+		labDir,
+	);
+	let labsFrom = path.resolve(__dirname, labsLocalPrefix);
+	try {
+		await clean(labsTo);
+		await fs.copy(labsFrom, labsTo, {
+			filter: (src) => !(src.includes('.gitkeep') || src.includes('finished')),
+		});
+		console.log(`Successfully saved files to ${labsTo}`);
+	} catch (err) {
+		console.error(`save(): ${err.message}`);
 	}
 }
 
@@ -100,16 +135,16 @@ const operations = {
 	begin,
 	clean,
 	finish,
+	save,
 	default: defaultOperation,
 };
 
-let [operation, labNumber] = process.argv.slice(2);
+let [operation, labNumber, beginFinish] = process.argv.slice(2);
 if (labNumber?.length === 1) labNumber = '0' + labNumber;
 
 // If the first argument is a number, do the default action
-if (Object.keys(operations)
-	.includes(operation)) {
-	operations[operation](labNumber);
+if (Object.keys(operations).includes(operation)) {
+	operations[operation](labNumber, beginFinish);
 } else if (!isNaN(Number(operation))) {
 	// Operation is actually a lab number
 	labNumber = operation;
