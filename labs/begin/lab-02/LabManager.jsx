@@ -1,16 +1,13 @@
 import React from 'react';
 import './LabManager.css';
-import Lab02 from './Lab02.jsx';
+import Calculator from './Calculator';
 
 const LabManager = () => {
 	return (
 		<>
-			<h2>Lab 2</h2>
+			<h2>Lab 2: Choose Operator</h2>
 			<section className="lab-container">
-				<nav></nav>
-				<div>
-					<Lab02 />
-				</div>
+				<Calculator />
 			</section>
 		</>
 	);
