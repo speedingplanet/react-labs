@@ -36,6 +36,11 @@ async function backup() {
 	let src = path.resolve(__dirname, labsLocalPrefix);
 	let dest = path.resolve(__dirname, backupPrefix);
 	try {
+		let srcExists = await fs.exists(src);
+		if (!srcExists) {
+			console.warn('Nothing to back up!');
+			return;
+		}
 		await fs.copy(src, dest, {
 			filter: (src) => !src.includes(finishedFolderName),
 		});
