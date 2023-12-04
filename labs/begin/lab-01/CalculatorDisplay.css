@@ -1,0 +1,11 @@
+.calculator-display {
+	display: flex;
+}
+
+.calculator-display > div {
+	flex: 1;
+}
+
+.rValue::after {
+	content: ' = ';
+}

@@ -1,0 +1,13 @@
+.lab-container {
+	display: flex;
+}
+
+.lab-container > nav {
+	flex: 0 0 20vw;
+	/* border: 2px green dashed; */
+}
+
+.lab-container > div {
+	flex: 1 1;
+	/* border: 2px red dotted; */
+}

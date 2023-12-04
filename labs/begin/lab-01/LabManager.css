@@ -1,0 +1,11 @@
+.lab-container {
+	display: flex;
+}
+
+.lab-container > nav {
+	flex: 0 0 20vw;
+}
+
+.lab-container > div {
+	flex: 1 1;
+}
