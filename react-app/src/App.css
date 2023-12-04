@@ -1,18 +1,22 @@
 main {
-  font-family: Arial, Helvetica, sans-serif;
-  margin-left: 1em;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-left: 1em;
 }
 
 .navbar + hr {
 	margin-bottom: 10px;
 }
 
-.navbar > ul{
-  padding: 0;
+.navbar > ul {
+	padding: 0;
 }
 
 .navbar li {
-  list-style-type: none;
-  display: inline-block;
-  margin-inline-end: 1em;
+	list-style-type: none;
+	display: inline-block;
+	margin-inline-end: 1em;
+}
+
+.mb-1 {
+	margin-bottom: 0.5rem;
 }
