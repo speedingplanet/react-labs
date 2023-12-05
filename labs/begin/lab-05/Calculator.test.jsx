@@ -12,17 +12,17 @@ test('Loads and displays Calculator', () => {
 	expect(screen.getByLabelText(/Choose/)).toBeInTheDocument();
 });
 
-test('Does not display any equation at start', () => {
+test.skip('Does not display any equation at start', () => {
 	render(<Calculator />);
 
-	expect(screen.queryByText(/5/)).not.toBeVisible();
+	expect(screen.getByText(/5/)).not.toBeVisible();
 });
 
-test('Displays equation after selecting an operator', async () => {
+test.skip('Displays equation after selecting an operator', async () => {
 	const { container } = render(<Calculator />);
 
 	await userEvent.selectOptions(screen.getByLabelText(/Choose/), '+');
-	expect(screen.queryByText(/^5/)).toBeVisible();
+	expect(screen.getByText(/^5/)).toBeVisible();
 
 	expect(container.querySelector('.result')?.textContent).toBe('15');
 });

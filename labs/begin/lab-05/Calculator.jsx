@@ -9,6 +9,7 @@ Each should be tied to their own `useState` call, as well as their own event han
 Pass the state values for the left and the right operands into CalculatorDisplay
 
 Test your code locally to make sure it works. 
+You can run `npm run test` if you'd like, but there are two tests that are skipped
 We will write actual tests for it in the next lab
 */
 function Calculator() {
