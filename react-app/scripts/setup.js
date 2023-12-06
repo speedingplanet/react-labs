@@ -91,6 +91,7 @@ async function finish(labNumber) {
 		let labsFromExists = await fs.exists(labsFrom);
 		if (!labsFromExists) throw new Error(`Could not find lab ${labNumber}`);
 		let labsTo = path.resolve(__dirname, labsLocalPrefix, finishedFolderName);
+		await clean(labsTo);
 		await fs.copy(labsFrom, labsTo, {
 			filter: (src) => !src.includes(labManager),
 		});
