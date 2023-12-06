@@ -14,9 +14,9 @@
 }
 
 .header-cell {
-	--custom-background-color: yellow;
+	/* --custom-background-color: yellow; */
 	font-weight: bold;
 	border-bottom: 4px groove darkgray;
 	padding-bottom: 2px;
-	background-color: var(--custom-background-color);
+	/* background-color: var(--custom-background-color); */
 }

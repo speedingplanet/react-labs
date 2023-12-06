@@ -5,31 +5,51 @@ import './StudentsGrid.css';
 function StudentsGrid() {
 	console.log(`There are ${students.length} students`);
 
-	let headers = ['First Name', 'Last Name', 'City', 'State/Province'];
+	let columns = [
+		{
+			label: 'First Name',
+			field: 'firstName',
+		},
+		{
+			label: 'Last Name',
+			field: 'lastName',
+		},
+		{
+			label: 'Student ID',
+			field: 'id',
+		},
+	];
 
 	return (
 		<section
 			className="students-grid"
-			style={{ '--header-column-width': `${100 / headers.length}%` }}
+			style={{ '--header-column-width': `${100 / columns.length}%` }}
 		>
-			{headers.map((header) => (
+			{columns.map((column) => (
 				<div
 					className="students-grid-cell header-cell"
-					key={header}
+					key={column.field}
 				>
-					{header}
+					{column.label}
 				</div>
 			))}
 
+			{/* Loop over each student */}
 			{students.map((student) => {
 				return (
 					<div
 						className="students-grid-row"
 						key={student.id}
 					>
-						<div className="students-grid-cell">{student.firstName}</div>
-						<div className="students-grid-cell">{student.lastName}</div>
-						<div className="students-grid-cell">{student.address.city}</div>
+						{/* Loop over the fields we should display from this student */}
+						{columns.map((column) => (
+							<div
+								className="students-grid-cell"
+								key={column.field}
+							>
+								{student[column.field]}
+							</div>
+						))}
 					</div>
 				);
 			})}
