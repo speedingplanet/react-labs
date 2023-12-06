@@ -1,6 +1,6 @@
 main {
 	font-family: Arial, Helvetica, sans-serif;
-	margin-left: 1em;
+	margin: 0 1em;
 }
 
 .navbar + hr {

@@ -8,3 +8,13 @@
 	/* grow, shrink, width */
 	flex: 0 0 50%;
 }
+
+.students-grid-row {
+	display: contents;
+}
+
+.header-cell {
+	font-weight: bold;
+	border-bottom: 4px groove darkgray;
+	padding-bottom: 2px;
+}
