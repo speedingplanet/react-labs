@@ -5,10 +5,22 @@ import './StudentsGrid.css';
 function StudentsGrid() {
 	console.log(`There are ${students.length} students`);
 
+	let headers = ['First Name', 'Last Name', 'City', 'State/Province'];
+
 	return (
-		<section className="students-grid">
-			<div className="students-grid-cell header-cell">First Name</div>
-			<div className="students-grid-cell header-cell">Last Name</div>
+		<section
+			className="students-grid"
+			style={{ '--header-column-width': `${100 / headers.length}%` }}
+		>
+			{headers.map((header) => (
+				<div
+					className="students-grid-cell header-cell"
+					key={header}
+				>
+					{header}
+				</div>
+			))}
+
 			{students.map((student) => {
 				return (
 					<div
@@ -17,6 +29,7 @@ function StudentsGrid() {
 					>
 						<div className="students-grid-cell">{student.firstName}</div>
 						<div className="students-grid-cell">{student.lastName}</div>
+						<div className="students-grid-cell">{student.address.city}</div>
 					</div>
 				);
 			})}

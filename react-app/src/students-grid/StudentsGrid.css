@@ -6,7 +6,7 @@
 
 .students-grid-cell {
 	/* grow, shrink, width */
-	flex: 0 0 50%;
+	flex: 0 0 var(--header-column-width);
 }
 
 .students-grid-row {
@@ -14,7 +14,9 @@
 }
 
 .header-cell {
+	--custom-background-color: yellow;
 	font-weight: bold;
 	border-bottom: 4px groove darkgray;
 	padding-bottom: 2px;
+	background-color: var(--custom-background-color);
 }
