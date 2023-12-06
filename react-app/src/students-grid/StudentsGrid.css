@@ -1,0 +1,10 @@
+.students-grid {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.students-grid-cell {
+	/* grow, shrink, width */
+	flex: 0 0 50%;
+}
