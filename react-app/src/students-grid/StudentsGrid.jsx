@@ -30,12 +30,19 @@ function StudentsGrid() {
 		},
 	];
 
+	function handleHeaderClick(sortField) {
+		console.log(`StudentsGrid says: You clicked on the ${sortField} header`);
+	}
+
 	return (
 		<section
 			className="students-grid"
 			style={{ '--header-column-width': `${100 / columns.length}%` }}
 		>
-			<StudentsGridHeader columns={columns} />
+			<StudentsGridHeader
+				columns={columns}
+				onHeaderClick={handleHeaderClick}
+			/>
 			<StudentsGridBody
 				columns={columns}
 				students={students}

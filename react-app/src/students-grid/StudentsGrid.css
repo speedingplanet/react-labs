@@ -18,5 +18,6 @@
 	font-weight: bold;
 	border-bottom: 4px groove darkgray;
 	padding-bottom: 2px;
+	cursor: pointer;
 	/* background-color: var(--custom-background-color); */
 }
