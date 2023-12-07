@@ -5,8 +5,21 @@ import './StudentsGrid.css';
 import StudentsGridHeader from './StudentsGridHeader';
 import StudentsGridBody from './StudentsGridBody';
 
+/*
+Tracking in state:
+sortField
+sortDirection
+
+Rewrite handleHeaderClick to figure out what the correct next state is
+*/
+
+const initialState = {
+	sortField: '',
+	sortDirection: 'asc',
+};
+
 function StudentsGrid() {
-	const [sortField, setSortField] = useState('');
+	const [sortConfig, setSortConfig] = useState(initialState);
 
 	let columns = [
 		{
@@ -31,11 +44,32 @@ function StudentsGrid() {
 		},
 	];
 
-	function handleHeaderClick(sortField) {
-		setSortField(sortField);
+	function handleHeaderClick(nextSortField) {
+		let nextSortDirection = '';
+
+		if (sortConfig.sortField !== nextSortField) {
+			nextSortDirection = 'asc';
+		} else {
+			if (sortConfig.sortDirection === 'asc') {
+				nextSortDirection = 'desc';
+			} else {
+				nextSortDirection = 'asc';
+			}
+		}
+
+		let nextSortConfig = {
+			sortDirection: nextSortDirection,
+			sortField: nextSortField,
+		};
+
+		setSortConfig(nextSortConfig);
 	}
 
-	let sortedStudents = orderBy(students, sortField);
+	let sortedStudents = orderBy(
+		students,
+		sortConfig.sortField,
+		sortConfig.sortDirection,
+	);
 
 	return (
 		<section
