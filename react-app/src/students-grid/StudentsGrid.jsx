@@ -17,8 +17,16 @@ function StudentsGrid() {
 			field: 'lastName',
 		},
 		{
-			label: 'Student ID',
-			field: 'id',
+			label: 'City',
+			field: 'address.city',
+		},
+		{
+			label: 'State/Province',
+			field: 'address.province',
+		},
+		{
+			label: 'Country',
+			field: 'address.country',
 		},
 	];
 

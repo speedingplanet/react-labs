@@ -1,4 +1,5 @@
 import React from 'react';
+import { get } from 'lodash';
 
 function StudentsGridRow({ student, columns }) {
 	return (
@@ -9,7 +10,9 @@ function StudentsGridRow({ student, columns }) {
 					className="students-grid-cell"
 					key={column.field}
 				>
-					{student[column.field]}
+					{/* {student[column.field]} */}
+					{/* get(student, 'address.city') */}
+					{get(student, column.field)}
 				</div>
 			))}
 		</div>
