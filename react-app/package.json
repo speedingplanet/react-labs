@@ -11,7 +11,7 @@
 		"begin": "node scripts/setup.js begin",
 		"finish": "node scripts/setup.js finish",
 		"preview": "vite preview",
-		"rest-server": "json-server --port 8000 src/data/students-json",
+		"rest-server": "json-server --port 8000 ./src/data/students.json",
 		"test": "vitest",
 		"test:once": "vitest run"
 	},
