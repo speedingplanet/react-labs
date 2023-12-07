@@ -79,6 +79,7 @@ function StudentsGrid() {
 			<StudentsGridHeader
 				columns={columns}
 				onHeaderClick={handleHeaderClick}
+				sortConfig={sortConfig}
 			/>
 			<StudentsGridBody
 				columns={columns}

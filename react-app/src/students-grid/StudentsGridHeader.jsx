@@ -1,4 +1,5 @@
 import React from 'react';
+import SortIndicator from './SortIndicator';
 
 /*
 Adding custom events
@@ -16,7 +17,7 @@ The Parent writes the callback function and then passes a reference
 (no parentheses!) into the Child component as one of its props
 */
 
-function StudentsGridHeader({ columns, onHeaderClick }) {
+function StudentsGridHeader({ columns, onHeaderClick, sortConfig }) {
 	return (
 		<>
 			{columns.map((column) => (
@@ -25,7 +26,16 @@ function StudentsGridHeader({ columns, onHeaderClick }) {
 					key={column.field}
 					onClick={() => onHeaderClick(column.field)}
 				>
-					{column.label}
+					{column.label}{' '}
+					{/*sortConfig.sortField === column.field
+						? sortConfig.sortDirection === 'asc'
+							? '⏫'
+							: '⏬'
+			: '' */}
+					<SortIndicator
+						sortConfig={sortConfig}
+						currentField={column.field}
+					/>
 				</div>
 			))}
 		</>
