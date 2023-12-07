@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { students } from '../data/students.json';
+import { orderBy } from 'lodash';
 import './StudentsGrid.css';
 import StudentsGridHeader from './StudentsGridHeader';
 import StudentsGridBody from './StudentsGridBody';
 
 function StudentsGrid() {
-	console.log(`There are ${students.length} students`);
+	const [sortField, setSortField] = useState('');
 
 	let columns = [
 		{
@@ -31,8 +32,10 @@ function StudentsGrid() {
 	];
 
 	function handleHeaderClick(sortField) {
-		console.log(`StudentsGrid says: You clicked on the ${sortField} header`);
+		setSortField(sortField);
 	}
+
+	let sortedStudents = orderBy(students, sortField);
 
 	return (
 		<section
@@ -45,7 +48,7 @@ function StudentsGrid() {
 			/>
 			<StudentsGridBody
 				columns={columns}
-				students={students}
+				students={sortedStudents}
 			/>
 		</section>
 	);
