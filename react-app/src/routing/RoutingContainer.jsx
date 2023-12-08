@@ -1,8 +1,38 @@
 import React from 'react';
 import './RoutingContainer.css';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Outlet, Route, Routes, useParams } from 'react-router-dom';
 
 function RoutingContainer() {
+	let secondName = 'Gurveer';
+	return (
+		<Routes>
+			<Route
+				path="/"
+				element={<RoutingOutlet />}
+			>
+				<Route
+					path="products/:productId"
+					element={<ProductDetails />}
+				/>
+
+				<Route
+					path="first"
+					element={<First />}
+				/>
+				<Route
+					path="second"
+					element={<Second name={secondName} />}
+				/>
+				<Route
+					path="third"
+					element={<Third />}
+				/>
+			</Route>
+		</Routes>
+	);
+}
+
+function RoutingOutlet() {
 	return (
 		<>
 			<header>
@@ -12,31 +42,30 @@ function RoutingContainer() {
 				<nav className="left">
 					<ul>
 						<li>
-							<Link to="/routing/first">First</Link>
+							<Link to="first">First</Link>
 						</li>
 						<li>
-							<Link to="/routing/second">Second</Link>
+							<Link to="second">Second</Link>
 						</li>
 						<li>
-							<Link to="/routing/third">Third</Link>
+							<Link to="third">Third</Link>
+						</li>
+						<li>
+							<Link to="products/1">Product 1</Link>
+						</li>
+						<li>
+							<Link to="products/5">Product 5</Link>
+						</li>
+						<li>
+							<Link to="products/8">Product 8</Link>
+						</li>
+						<li>
+							<Link to="products/4">Product 4</Link>
 						</li>
 					</ul>
 				</nav>
 				<div className="right">
-					<Routes>
-						<Route
-							path="first"
-							element={<First />}
-						/>
-						<Route
-							path="second"
-							element={<Second />}
-						/>
-						<Route
-							path="third"
-							element={<Third />}
-						/>
-					</Routes>
+					<Outlet />
 				</div>
 			</div>
 		</>
@@ -45,12 +74,17 @@ function RoutingContainer() {
 
 export default RoutingContainer;
 
+function ProductDetails() {
+	let { productId } = useParams();
+	return <div>You want to see product #{productId}</div>;
+}
+
 function First() {
 	return <div>First</div>;
 }
 
-function Second() {
-	return <div>Second</div>;
+function Second({ name }) {
+	return <div>Hello, {name ?? 'world'}</div>;
 }
 
 function Third() {
