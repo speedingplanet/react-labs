@@ -4,44 +4,52 @@ import Home from './Home';
 import LabManager from './labs/LabManager';
 import './App.css';
 import StudentsManager from './StudentsManager';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+	uri: 'http://localhost:4000',
+	cache: new InMemoryCache(),
+});
 
 function App() {
 	return (
-		<main>
-			<header>
-				<h1>React Labs</h1>
-			</header>
-			<BrowserRouter>
-				<nav className="navbar">
-					<ul>
-						<li>
-							<Link to="/">Home</Link>
-						</li>
-						<li>
-							<Link to="/labs">Labs</Link>
-						</li>
-						<li>
-							<Link to="/students">Students</Link>
-						</li>
-					</ul>
-				</nav>
-				<hr style={{ marginTop: '5px' }} />
-				<Routes>
-					<Route
-						path="/"
-						element={<Home />}
-					/>
-					<Route
-						path="labs/*"
-						element={<LabManager />}
-					/>
-					<Route
-						path="students/*"
-						element={<StudentsManager />}
-					/>
-				</Routes>
-			</BrowserRouter>
-		</main>
+		<ApolloProvider client={client}>
+			<main>
+				<header>
+					<h1>React Labs</h1>
+				</header>
+				<BrowserRouter>
+					<nav className="navbar">
+						<ul>
+							<li>
+								<Link to="/">Home</Link>
+							</li>
+							<li>
+								<Link to="/labs">Labs</Link>
+							</li>
+							<li>
+								<Link to="/students">Students</Link>
+							</li>
+						</ul>
+					</nav>
+					<hr style={{ marginTop: '5px' }} />
+					<Routes>
+						<Route
+							path="/"
+							element={<Home />}
+						/>
+						<Route
+							path="labs/*"
+							element={<LabManager />}
+						/>
+						<Route
+							path="students/*"
+							element={<StudentsManager />}
+						/>
+					</Routes>
+				</BrowserRouter>
+			</main>
+		</ApolloProvider>
 	);
 }
 

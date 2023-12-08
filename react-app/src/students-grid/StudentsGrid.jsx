@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { students } from '../data/students.json';
+import { useQuery, gql } from '@apollo/client';
 import { orderBy } from 'lodash';
 import './StudentsGrid.css';
 import StudentsGridHeader from './StudentsGridHeader';
@@ -18,8 +18,29 @@ const initialState = {
 	sortDirection: 'asc',
 };
 
+const GET_STUDENTS = gql`
+	query GetStudents {
+		students {
+			firstName
+			lastName
+			id
+			address {
+				city
+				province
+				country
+			}
+		}
+	}
+`;
+
 function StudentsGrid() {
 	const [sortConfig, setSortConfig] = useState(initialState);
+	const { loading, error, data } = useQuery(GET_STUDENTS);
+
+	// Deal with loading, errors, or no request being made
+	if (loading) return <p>Loading students...</p>;
+	if (error) return <p>Error: {error.message}</p>;
+	if (!data) return <p>No requests made</p>;
 
 	let columns = [
 		{
@@ -64,6 +85,8 @@ function StudentsGrid() {
 
 		setSortConfig(nextSortConfig);
 	}
+
+	let students = data.students;
 
 	let sortedStudents = orderBy(
 		students,
