@@ -1,4 +1,3 @@
-import { gql, useLazyQuery } from '@apollo/client';
 import React, { useState } from 'react';
 
 /*
@@ -17,33 +16,29 @@ which country they searched on.
 
 */
 
-const GET_STUDENTS_BY_COUNTRY = gql`
-	query QueryStudentsByCountry($country: String!) {
-		studentsByCountry(country: $country) {
-			firstName
-			lastName
-			id
-			address {
-				city
-				province
-				country
-			}
-		}
-	}
-`;
-
 function SearchStudents() {
 	const [country, setCountry] = useState('');
-	const [queryRunner, { loading, error, data }] = useLazyQuery(
-		GET_STUDENTS_BY_COUNTRY,
-	);
+	const [students, setStudents] = useState([]);
 
-	if (loading) return <p>Querying students....</p>;
-	if (error) return <p>Error: {error.message}</p>;
-
-	async function handleSearchButton() {
+	function handleSearchButton() {
 		console.log(`You want to search on ${country}`);
-		await queryRunner({ variables: { country: country } });
+		if (country !== '') {
+			let params = new URLSearchParams({ 'address.country': country });
+			let promise1 = fetch(
+				`http://localhost:8000/students?${params.toString()}`,
+			);
+
+			let promise2 = promise1.then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+			});
+
+			promise2.then((results) => {
+				console.log(results);
+				setStudents(results);
+			});
+		}
 	}
 
 	function handleSelectCountry(event) {
@@ -73,20 +68,16 @@ function SearchStudents() {
 					Search
 				</button>
 			</div>
-			{data && data.studentsByCountry ? (
-				<div>
-					<ul>
-						{data.studentsByCountry.map((student) => (
-							<li key={student.id}>
-								{student.firstName} {student.lastName} from{' '}
-								{student.address.country}
-							</li>
-						))}
-					</ul>
-				</div>
-			) : (
-				''
-			)}
+			<div>
+				<ul>
+					{students.map((student) => (
+						<li key={student.id}>
+							{student.firstName} {student.lastName} from{' '}
+							{student.address.country}
+						</li>
+					))}
+				</ul>
+			</div>
 		</div>
 	);
 }

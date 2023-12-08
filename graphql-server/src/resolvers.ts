@@ -64,6 +64,10 @@ export const resolvers: Resolvers = {
 			return rooms;
 		},
 
+		studentsByCountry(parent, { country }) {
+			// Have to return null, not undefined
+			return students.filter((s) => s.address.country === country) ?? null;
+		},
 		/*
 		studentsWithFilter(parent, args) {
 			// Shortcut, no need to do filtering work if args is not present or empty

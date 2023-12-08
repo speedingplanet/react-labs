@@ -8,6 +8,7 @@ type Query {
 	students: [Student]
 	studentsWithFilter(filter: StudentOptional!): [Student]!
 	studentById(id: Int!): Student
+	studentsByCountry(country: String!): [Student]
 	courses: [Course]
 	classes: [Class]
 	departments: [Department]
