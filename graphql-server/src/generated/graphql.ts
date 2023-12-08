@@ -29,6 +29,30 @@ export type Class = {
   semester: Scalars['String']['output'];
 };
 
+export type Country = {
+  __typename?: 'Country';
+  area?: Maybe<Scalars['Float']['output']>;
+  cca2?: Maybe<Scalars['String']['output']>;
+  cca3?: Maybe<Scalars['String']['output']>;
+  country: Scalars['String']['output'];
+  density?: Maybe<Scalars['Float']['output']>;
+  densityMi?: Maybe<Scalars['Float']['output']>;
+  growthRate?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['Int']['output'];
+  landAreaKm?: Maybe<Scalars['Float']['output']>;
+  netChange?: Maybe<Scalars['Float']['output']>;
+  place?: Maybe<Scalars['Int']['output']>;
+  pop1980?: Maybe<Scalars['Int']['output']>;
+  pop2000?: Maybe<Scalars['Int']['output']>;
+  pop2010?: Maybe<Scalars['Int']['output']>;
+  pop2022?: Maybe<Scalars['Int']['output']>;
+  pop2023?: Maybe<Scalars['Int']['output']>;
+  pop2030?: Maybe<Scalars['Int']['output']>;
+  pop2050?: Maybe<Scalars['Int']['output']>;
+  unMember?: Maybe<Scalars['Boolean']['output']>;
+  worldPercentage?: Maybe<Scalars['Float']['output']>;
+};
+
 export type Course = {
   __typename?: 'Course';
   courseDescription?: Maybe<Scalars['String']['output']>;
@@ -89,6 +113,7 @@ export type MutationUpdateStudentArgs = {
 export type Query = {
   __typename?: 'Query';
   classes?: Maybe<Array<Maybe<Class>>>;
+  countries?: Maybe<Array<Maybe<Country>>>;
   courses?: Maybe<Array<Maybe<Course>>>;
   departments?: Maybe<Array<Maybe<Department>>>;
   hello?: Maybe<Scalars['String']['output']>;
@@ -260,8 +285,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Class: ResolverTypeWrapper<Class>;
+  Country: ResolverTypeWrapper<Country>;
   Course: ResolverTypeWrapper<Course>;
   Department: ResolverTypeWrapper<Department>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Instructor: ResolverTypeWrapper<Instructor>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -278,8 +305,10 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   Class: Class;
+  Country: Country;
   Course: Course;
   Department: Department;
+  Float: Scalars['Float']['output'];
   Instructor: Instructor;
   Int: Scalars['Int']['output'];
   Mutation: {};
@@ -302,6 +331,30 @@ export type ClassResolvers<ContextType = any, ParentType extends ResolversParent
   roomId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   seats?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   semester?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CountryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Country'] = ResolversParentTypes['Country']> = {
+  area?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  cca2?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  cca3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  density?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  densityMi?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  growthRate?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  landAreaKm?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  netChange?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  place?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  pop1980?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  pop2000?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  pop2010?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  pop2022?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  pop2023?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  pop2030?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  pop2050?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  unMember?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  worldPercentage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -347,6 +400,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   classes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Class']>>>, ParentType, ContextType>;
+  countries?: Resolver<Maybe<Array<Maybe<ResolversTypes['Country']>>>, ParentType, ContextType>;
   courses?: Resolver<Maybe<Array<Maybe<ResolversTypes['Course']>>>, ParentType, ContextType>;
   departments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Department']>>>, ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, Partial<QueryHelloArgs>>;
@@ -394,6 +448,7 @@ export type StudentResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type Resolvers<ContextType = any> = {
   Class?: ClassResolvers<ContextType>;
+  Country?: CountryResolvers<ContextType>;
   Course?: CourseResolvers<ContextType>;
   Department?: DepartmentResolvers<ContextType>;
   Instructor?: InstructorResolvers<ContextType>;

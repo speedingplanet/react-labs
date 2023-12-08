@@ -16,6 +16,7 @@
 		"test:once": "vitest run"
 	},
 	"dependencies": {
+		"@apollo/client": "^3.8.8",
 		"@reduxjs/toolkit": "^1.9.7",
 		"lodash": "^4.17.21",
 		"lodash-es": "^4.17.21",

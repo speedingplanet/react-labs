@@ -4,6 +4,7 @@ type Query {
 	# hello: String
 	# hello(firstName: String): String
 	hello(firstName: String): String
+	countries: [Country]
 	students: [Student]
 	studentsWithFilter(filter: StudentOptional!): [Student]!
 	studentsWithFields(
@@ -112,6 +113,29 @@ type Student {
 	province: String
 	country: String
 	postalCode: String
+}
+
+type Country {
+	id: Int!
+	country: String!
+	place: Int
+	pop1980: Int
+	pop2000: Int
+	pop2010: Int
+	pop2022: Int
+	pop2023: Int
+	pop2030: Int
+	pop2050: Int
+	area: Float
+	landAreaKm: Float
+	cca2: String
+	cca3: String
+	unMember: Boolean
+	netChange: Float
+	growthRate: Float
+	worldPercentage: Float
+	density: Float
+	densityMi: Float
 }
 
 input StudentOptional {

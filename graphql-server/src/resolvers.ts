@@ -10,6 +10,7 @@ import {
 } from './data/all-data-typed.js';
 import _ from 'lodash';
 import { GraphQLError } from 'graphql';
+import { countries } from './data/countries-table-typed.js';
 
 export const resolvers: Resolvers = {
 	Query: {
@@ -30,6 +31,10 @@ export const resolvers: Resolvers = {
 			*/
 			let firstName = args.firstName ?? 'everyone';
 			return `Hi ${firstName}!`;
+		},
+
+		countries() {
+			return countries;
 		},
 
 		students() {
