@@ -5,6 +5,7 @@ import LabManager from './labs/LabManager';
 import './App.css';
 import StudentsManager from './StudentsManager';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import RoutingContainer from './routing/RoutingContainer';
 
 const client = new ApolloClient({
 	uri: 'http://localhost:4000',
@@ -30,6 +31,9 @@ function App() {
 							<li>
 								<Link to="/students">Students</Link>
 							</li>
+							<li>
+								<Link to="/routing">Routing</Link>
+							</li>
 						</ul>
 					</nav>
 					<hr style={{ marginTop: '5px' }} />
@@ -45,6 +49,10 @@ function App() {
 						<Route
 							path="students/*"
 							element={<StudentsManager />}
+						/>
+						<Route
+							path="routing/*"
+							element={<RoutingContainer />}
 						/>
 					</Routes>
 				</BrowserRouter>
