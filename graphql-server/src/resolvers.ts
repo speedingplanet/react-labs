@@ -1,4 +1,4 @@
-import type { Resolvers, Student } from './generated/graphql.js';
+import type { Resolvers } from './generated/graphql.js';
 import {
 	students,
 	classes,
@@ -8,7 +8,6 @@ import {
 	registrations,
 	rooms,
 } from './data/all-data-typed.js';
-import _ from 'lodash';
 import { countries } from './data/countries-table-typed.js';
 
 export const resolvers: Resolvers = {
@@ -36,8 +35,10 @@ export const resolvers: Resolvers = {
 			return countries;
 		},
 
-		students() {
-			return students;
+		students(parent, { country }) {
+			if (!country) return students;
+
+			return students.filter((s) => s.address.country === country);
 		},
 
 		classes() {

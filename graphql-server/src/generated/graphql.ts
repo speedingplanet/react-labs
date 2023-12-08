@@ -123,6 +123,11 @@ export type QueryStudentByIdArgs = {
 };
 
 
+export type QueryStudentsArgs = {
+  country?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryStudentsByCountryArgs = {
   country: Scalars['String']['input'];
 };
@@ -395,7 +400,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   registrations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Registration']>>>, ParentType, ContextType>;
   rooms?: Resolver<Maybe<Array<Maybe<ResolversTypes['Room']>>>, ParentType, ContextType>;
   studentById?: Resolver<Maybe<ResolversTypes['Student']>, ParentType, ContextType, RequireFields<QueryStudentByIdArgs, 'id'>>;
-  students?: Resolver<Maybe<Array<Maybe<ResolversTypes['Student']>>>, ParentType, ContextType>;
+  students?: Resolver<Maybe<Array<Maybe<ResolversTypes['Student']>>>, ParentType, ContextType, Partial<QueryStudentsArgs>>;
   studentsByCountry?: Resolver<Maybe<Array<Maybe<ResolversTypes['Student']>>>, ParentType, ContextType, RequireFields<QueryStudentsByCountryArgs, 'country'>>;
   studentsWithFilter?: Resolver<Array<Maybe<ResolversTypes['Student']>>, ParentType, ContextType, RequireFields<QueryStudentsWithFilterArgs, 'filter'>>;
 };

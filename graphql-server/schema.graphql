@@ -5,7 +5,7 @@ type Query {
 	# hello(firstName: String): String
 	hello(firstName: String): String
 	countries: [Country]
-	students: [Student]
+	students(country: String): [Student]
 	studentsWithFilter(filter: StudentOptional!): [Student]!
 	studentById(id: Int!): Student
 	studentsByCountry(country: String!): [Student]

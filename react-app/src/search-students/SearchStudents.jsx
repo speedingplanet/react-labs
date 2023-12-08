@@ -18,8 +18,8 @@ which country they searched on.
 */
 
 const GET_STUDENTS_BY_COUNTRY = gql`
-	query QueryStudentsByCountry($country: String!) {
-		studentsByCountry(country: $country) {
+	query QueryStudentsByCountry($searchCountry: String!) {
+		students(country: $searchCountry) {
 			firstName
 			lastName
 			id
@@ -41,9 +41,9 @@ function SearchStudents() {
 	if (loading) return <p>Querying students....</p>;
 	if (error) return <p>Error: {error.message}</p>;
 
-	async function handleSearchButton() {
+	function handleSearchButton() {
 		console.log(`You want to search on ${country}`);
-		await queryRunner({ variables: { country: country } });
+		queryRunner({ variables: { searchCountry: country } });
 	}
 
 	function handleSelectCountry(event) {
@@ -73,10 +73,10 @@ function SearchStudents() {
 					Search
 				</button>
 			</div>
-			{data && data.studentsByCountry ? (
+			{data && data.students ? (
 				<div>
 					<ul>
-						{data.studentsByCountry.map((student) => (
+						{data.students.map((student) => (
 							<li key={student.id}>
 								{student.firstName} {student.lastName} from{' '}
 								{student.address.country}
