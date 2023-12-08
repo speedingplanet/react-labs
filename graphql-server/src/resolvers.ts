@@ -36,14 +36,14 @@ export const resolvers: Resolvers = {
 			return students;
 		},
 
-		/* 		classes() {
+		classes() {
 			return classes;
 		},
- */
+
 		courses() {
 			return courses;
 		},
-		/*
+
 		departments() {
 			return departments;
 		},
@@ -59,7 +59,6 @@ export const resolvers: Resolvers = {
 		rooms() {
 			return rooms;
 		},
-*/
 
 		studentsWithFilter(parent, args) {
 			// Shortcut, no need to do filtering work if args is not present or empty
@@ -84,6 +83,20 @@ export const resolvers: Resolvers = {
 			return students.find((s) => s.id === id) ?? null;
 		},
 	},
+
+	Course: {
+		department(parent) {
+			return departments.find((d) => d.id === parent.departmentId) || null;
+		},
+	},
+
+	/*
+	Class: {
+		course(parent) {
+			return courses.filter((course) => course.id === parent.courseId);
+		},
+	},
+	*/
 
 	Mutation: {
 		addStudent(parent, args) {

@@ -19,6 +19,12 @@ type Query {
 		postalCode: String
 	): [Student]!
 	studentById(id: Int!): Student
+	courses: [Course]
+	classes: [Class]
+	departments: [Department]
+	instructors: [Instructor]
+	registrations: [Registration]
+	rooms: [Room]
 }
 
 type Mutation {
@@ -35,6 +41,16 @@ type Mutation {
 	deleteStudent(id: Int!): Boolean
 }
 
+type Class {
+	id: Int!
+	courseId: Int!
+	semester: String!
+	instructorId: Int
+	seats: Int
+	roomId: Int
+	course: Course
+}
+
 type Course {
 	id: Int!
 	courseTitle: String!
@@ -42,6 +58,39 @@ type Course {
 	credits: Int
 	duration: Int
 	departmentId: Int
+	department: Department
+}
+
+type Department {
+	id: Int!
+	departmentName: String!
+}
+
+type Instructor {
+	id: Int!
+	firstName: String!
+	lastName: String!
+	dateOfBirth: String!
+	email: String
+	phoneNumber: String
+	city: String
+	province: String
+	country: String
+	postalCode: String
+}
+
+type Registration {
+	id: Int!
+	classId: Int!
+	studentId: Int!
+	registrationDate: String
+	registrationStatus: String
+}
+
+type Room {
+	id: Int!
+	roomCapacity: Int
+	building: String
 }
 
 type Student {

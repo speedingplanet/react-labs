@@ -24,10 +24,10 @@
 		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
-		"@graphql-codegen/cli": "3.3.0",
-		"@graphql-codegen/introspection": "3.0.1",
-		"@graphql-codegen/typescript": "3.0.3",
-		"@graphql-codegen/typescript-resolvers": "3.2.0",
+		"@graphql-codegen/cli": "^5.0.0",
+		"@graphql-codegen/introspection": "^4.0.0",
+		"@graphql-codegen/typescript": "^4.0.1",
+		"@graphql-codegen/typescript-resolvers": "^4.0.1",
 		"@types/chai": "^4.3.4",
 		"@types/lodash": "^4.14.194",
 		"@types/mocha": "^10.0.1",
