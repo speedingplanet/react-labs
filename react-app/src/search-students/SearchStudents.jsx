@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 /*
 Searching on address.country
@@ -18,6 +18,24 @@ which country they searched on.
 
 function SearchStudents() {
 	const [country, setCountry] = useState('');
+	const [students, setStudents] = useState([]);
+
+	useEffect(() => {
+		let promise1 = fetch(
+			`http://localhost:8000/students?address.country=${country}`,
+		);
+
+		let promise2 = promise1.then((response) => {
+			if (response.ok) {
+				return response.json();
+			}
+		});
+
+		promise2.then((results) => {
+			console.log(results);
+			setStudents(results);
+		});
+	}, [country]);
 
 	function handleSearchButton() {
 		console.log(`You want to search on ${country}`);
@@ -49,6 +67,16 @@ function SearchStudents() {
 				>
 					Search
 				</button>
+			</div>
+			<div>
+				<ul>
+					{students.map((student) => (
+						<li key={student.id}>
+							{student.firstName} {student.lastName} from{' '}
+							{student.address.country}
+						</li>
+					))}
+				</ul>
 			</div>
 		</div>
 	);
