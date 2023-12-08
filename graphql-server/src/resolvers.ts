@@ -90,13 +90,41 @@ export const resolvers: Resolvers = {
 		},
 	},
 
-	/*
 	Class: {
 		course(parent) {
-			return courses.filter((course) => course.id === parent.courseId);
+			return courses.find((course) => course.id === parent.courseId) || null;
+		},
+		instructor(parent) {
+			return instructors.find((i) => i.id === parent.instructorId) || null;
+		},
+		room(parent) {
+			return rooms.find((i) => i.id === parent.roomId) || null;
 		},
 	},
-	*/
+
+	Instructor: {
+		department(parent) {
+			return departments.find((d) => d.id === parent.departmentId) || null;
+		},
+		classes(parent) {
+			return classes.filter((c) => c.instructorId === parent.id) || null;
+		},
+	},
+
+	Registration: {
+		class(parent) {
+			return classes.find((c) => c.id === parent.classId) || null;
+		},
+		student(parent) {
+			return students.find((s) => s.id === parent.studentId) || null;
+		},
+		course(parent) {
+			let foundClass = classes.find((c) => c.id === parent.classId);
+			return (
+				courses.find((course) => course.id === foundClass?.courseId) || null
+			);
+		},
+	},
 
 	Mutation: {
 		addStudent(parent, args) {

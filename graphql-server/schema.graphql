@@ -46,9 +46,11 @@ type Class {
 	courseId: Int!
 	semester: String!
 	instructorId: Int
-	seats: Int
 	roomId: Int
+	seats: Int
 	course: Course
+	instructor: Instructor
+	room: Room
 }
 
 type Course {
@@ -77,6 +79,9 @@ type Instructor {
 	province: String
 	country: String
 	postalCode: String
+	departmentId: Int
+	department: Department
+	classes: [Class]
 }
 
 type Registration {
@@ -85,6 +90,9 @@ type Registration {
 	studentId: Int!
 	registrationDate: String
 	registrationStatus: String
+	class: Class
+	course: Course
+	student: Student
 }
 
 type Room {

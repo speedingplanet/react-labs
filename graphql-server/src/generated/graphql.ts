@@ -21,7 +21,9 @@ export type Class = {
   course?: Maybe<Course>;
   courseId: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
+  instructor?: Maybe<Instructor>;
   instructorId?: Maybe<Scalars['Int']['output']>;
+  room?: Maybe<Room>;
   roomId?: Maybe<Scalars['Int']['output']>;
   seats?: Maybe<Scalars['Int']['output']>;
   semester: Scalars['String']['output'];
@@ -47,8 +49,11 @@ export type Department = {
 export type Instructor = {
   __typename?: 'Instructor';
   city?: Maybe<Scalars['String']['output']>;
+  classes?: Maybe<Array<Maybe<Class>>>;
   country?: Maybe<Scalars['String']['output']>;
   dateOfBirth: Scalars['String']['output'];
+  department?: Maybe<Department>;
+  departmentId?: Maybe<Scalars['Int']['output']>;
   email?: Maybe<Scalars['String']['output']>;
   firstName: Scalars['String']['output'];
   id: Scalars['Int']['output'];
@@ -127,10 +132,13 @@ export type QueryStudentsWithFilterArgs = {
 
 export type Registration = {
   __typename?: 'Registration';
+  class?: Maybe<Class>;
   classId: Scalars['Int']['output'];
+  course?: Maybe<Course>;
   id: Scalars['Int']['output'];
   registrationDate?: Maybe<Scalars['String']['output']>;
   registrationStatus?: Maybe<Scalars['String']['output']>;
+  student?: Maybe<Student>;
   studentId: Scalars['Int']['output'];
 };
 
@@ -288,7 +296,9 @@ export type ClassResolvers<ContextType = any, ParentType extends ResolversParent
   course?: Resolver<Maybe<ResolversTypes['Course']>, ParentType, ContextType>;
   courseId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  instructor?: Resolver<Maybe<ResolversTypes['Instructor']>, ParentType, ContextType>;
   instructorId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  room?: Resolver<Maybe<ResolversTypes['Room']>, ParentType, ContextType>;
   roomId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   seats?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   semester?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -314,8 +324,11 @@ export type DepartmentResolvers<ContextType = any, ParentType extends ResolversP
 
 export type InstructorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Instructor'] = ResolversParentTypes['Instructor']> = {
   city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  classes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Class']>>>, ParentType, ContextType>;
   country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dateOfBirth?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  department?: Resolver<Maybe<ResolversTypes['Department']>, ParentType, ContextType>;
+  departmentId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -347,10 +360,13 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type RegistrationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Registration'] = ResolversParentTypes['Registration']> = {
+  class?: Resolver<Maybe<ResolversTypes['Class']>, ParentType, ContextType>;
   classId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  course?: Resolver<Maybe<ResolversTypes['Course']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   registrationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   registrationStatus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  student?: Resolver<Maybe<ResolversTypes['Student']>, ParentType, ContextType>;
   studentId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
