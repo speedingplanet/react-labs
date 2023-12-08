@@ -9,7 +9,6 @@ import {
 	rooms,
 } from './data/all-data-typed.js';
 import _ from 'lodash';
-import { GraphQLError } from 'graphql';
 import { countries } from './data/countries-table-typed.js';
 
 export const resolvers: Resolvers = {
@@ -65,6 +64,7 @@ export const resolvers: Resolvers = {
 			return rooms;
 		},
 
+		/*
 		studentsWithFilter(parent, args) {
 			// Shortcut, no need to do filtering work if args is not present or empty
 			if (!args || _.isEmpty(args)) return students;
@@ -87,6 +87,7 @@ export const resolvers: Resolvers = {
 			// Have to return null, not undefined
 			return students.find((s) => s.id === id) ?? null;
 		},
+		*/
 	},
 
 	Course: {
@@ -131,7 +132,8 @@ export const resolvers: Resolvers = {
 		},
 	},
 
-	Mutation: {
+	// Mutation: {
+	/*
 		addStudent(parent, args) {
 			let id = getNextId(students, 'id');
 			let newStudent: Student = {
@@ -171,7 +173,8 @@ export const resolvers: Resolvers = {
 			}
 			return true;
 		},
-	},
+		*/
+	// },
 };
 
 function getNextId<T>(records: T[], field: keyof T) {

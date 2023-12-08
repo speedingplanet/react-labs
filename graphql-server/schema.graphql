@@ -7,18 +7,6 @@ type Query {
 	countries: [Country]
 	students: [Student]
 	studentsWithFilter(filter: StudentOptional!): [Student]!
-	studentsWithFields(
-		id: Int
-		firstName: String
-		lastName: String
-		dateOfBirth: String
-		email: String
-		phoneNumber: String
-		city: String
-		province: String
-		country: String
-		postalCode: String
-	): [Student]!
 	studentById(id: Int!): Student
 	courses: [Course]
 	classes: [Class]
@@ -28,19 +16,19 @@ type Query {
 	rooms: [Room]
 }
 
-type Mutation {
-	# This is the best option, because it returns the fully created Student object
-	addStudent(student: StudentInput!): Student!
-	#
-	# Just return the new ID value
-	# addStudent(student: StudentInput!): Int
-	#
-	# addStudent(student: StudentInput!): Boolean
+# type Mutation {
+# This is the best option, because it returns the fully created Student object
+# addStudent(student: StudentInput!): Student!
+#
+# Just return the new ID value
+# addStudent(student: StudentInput!): Int
+#
+# addStudent(student: StudentInput!): Boolean
 
-	# Thinking of a SQL UPDATE statement: UPDATE {StudentInput} WHERE id = id;
-	updateStudent(id: Int!, student: StudentOptional!): Student
-	deleteStudent(id: Int!): Boolean
-}
+# Thinking of a SQL UPDATE statement: UPDATE {StudentInput} WHERE id = id;
+# updateStudent(id: Int!, student: StudentOptional!): Student
+# deleteStudent(id: Int!): Boolean
+# }
 
 type Class {
 	id: Int!
@@ -102,13 +90,29 @@ type Room {
 	building: String
 }
 
-type Student {
+type Studentv1 {
 	id: Int!
 	firstName: String!
 	lastName: String!
 	dateOfBirth: String!
 	email: String
 	phoneNumber: String
+	city: String
+	province: String
+	country: String
+	postalCode: String
+}
+
+type Student {
+	id: Int!
+	firstName: String!
+	lastName: String!
+	active: Boolean!
+	address: Address!
+}
+
+type Address {
+	street: String
 	city: String
 	province: String
 	country: String
@@ -142,8 +146,6 @@ input StudentOptional {
 	firstName: String
 	lastName: String
 	dateOfBirth: String
-	email: String
-	phoneNumber: String
 	city: String
 	province: String
 	country: String
@@ -154,8 +156,6 @@ input StudentInput {
 	firstName: String!
 	lastName: String!
 	dateOfBirth: String!
-	email: String
-	phoneNumber: String
 	city: String
 	province: String
 	country: String

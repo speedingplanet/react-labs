@@ -16,6 +16,15 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type Address = {
+  __typename?: 'Address';
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  province?: Maybe<Scalars['String']['output']>;
+  street?: Maybe<Scalars['String']['output']>;
+};
+
 export type Class = {
   __typename?: 'Class';
   course?: Maybe<Course>;
@@ -87,29 +96,6 @@ export type Instructor = {
   province?: Maybe<Scalars['String']['output']>;
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  addStudent: Student;
-  deleteStudent?: Maybe<Scalars['Boolean']['output']>;
-  updateStudent?: Maybe<Student>;
-};
-
-
-export type MutationAddStudentArgs = {
-  student: StudentInput;
-};
-
-
-export type MutationDeleteStudentArgs = {
-  id: Scalars['Int']['input'];
-};
-
-
-export type MutationUpdateStudentArgs = {
-  id: Scalars['Int']['input'];
-  student: StudentOptional;
-};
-
 export type Query = {
   __typename?: 'Query';
   classes?: Maybe<Array<Maybe<Class>>>;
@@ -122,7 +108,6 @@ export type Query = {
   rooms?: Maybe<Array<Maybe<Room>>>;
   studentById?: Maybe<Student>;
   students?: Maybe<Array<Maybe<Student>>>;
-  studentsWithFields: Array<Maybe<Student>>;
   studentsWithFilter: Array<Maybe<Student>>;
 };
 
@@ -134,20 +119,6 @@ export type QueryHelloArgs = {
 
 export type QueryStudentByIdArgs = {
   id: Scalars['Int']['input'];
-};
-
-
-export type QueryStudentsWithFieldsArgs = {
-  city?: InputMaybe<Scalars['String']['input']>;
-  country?: InputMaybe<Scalars['String']['input']>;
-  dateOfBirth?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  firstName?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['Int']['input']>;
-  lastName?: InputMaybe<Scalars['String']['input']>;
-  phoneNumber?: InputMaybe<Scalars['String']['input']>;
-  postalCode?: InputMaybe<Scalars['String']['input']>;
-  province?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -176,6 +147,35 @@ export type Room = {
 
 export type Student = {
   __typename?: 'Student';
+  active: Scalars['Boolean']['output'];
+  address: Address;
+  firstName: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  lastName: Scalars['String']['output'];
+};
+
+export type StudentInput = {
+  city?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  dateOfBirth: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  postalCode?: InputMaybe<Scalars['String']['input']>;
+  province?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StudentOptional = {
+  city?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  dateOfBirth?: InputMaybe<Scalars['String']['input']>;
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  postalCode?: InputMaybe<Scalars['String']['input']>;
+  province?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Studentv1 = {
+  __typename?: 'Studentv1';
   city?: Maybe<Scalars['String']['output']>;
   country?: Maybe<Scalars['String']['output']>;
   dateOfBirth: Scalars['String']['output'];
@@ -186,30 +186,6 @@ export type Student = {
   phoneNumber?: Maybe<Scalars['String']['output']>;
   postalCode?: Maybe<Scalars['String']['output']>;
   province?: Maybe<Scalars['String']['output']>;
-};
-
-export type StudentInput = {
-  city?: InputMaybe<Scalars['String']['input']>;
-  country?: InputMaybe<Scalars['String']['input']>;
-  dateOfBirth: Scalars['String']['input'];
-  email?: InputMaybe<Scalars['String']['input']>;
-  firstName: Scalars['String']['input'];
-  lastName: Scalars['String']['input'];
-  phoneNumber?: InputMaybe<Scalars['String']['input']>;
-  postalCode?: InputMaybe<Scalars['String']['input']>;
-  province?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type StudentOptional = {
-  city?: InputMaybe<Scalars['String']['input']>;
-  country?: InputMaybe<Scalars['String']['input']>;
-  dateOfBirth?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  firstName?: InputMaybe<Scalars['String']['input']>;
-  lastName?: InputMaybe<Scalars['String']['input']>;
-  phoneNumber?: InputMaybe<Scalars['String']['input']>;
-  postalCode?: InputMaybe<Scalars['String']['input']>;
-  province?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -283,6 +259,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Address: ResolverTypeWrapper<Address>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Class: ResolverTypeWrapper<Class>;
   Country: ResolverTypeWrapper<Country>;
@@ -291,7 +268,6 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Instructor: ResolverTypeWrapper<Instructor>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Registration: ResolverTypeWrapper<Registration>;
   Room: ResolverTypeWrapper<Room>;
@@ -299,10 +275,12 @@ export type ResolversTypes = {
   Student: ResolverTypeWrapper<Student>;
   StudentInput: StudentInput;
   StudentOptional: StudentOptional;
+  Studentv1: ResolverTypeWrapper<Studentv1>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Address: Address;
   Boolean: Scalars['Boolean']['output'];
   Class: Class;
   Country: Country;
@@ -311,7 +289,6 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output'];
   Instructor: Instructor;
   Int: Scalars['Int']['output'];
-  Mutation: {};
   Query: {};
   Registration: Registration;
   Room: Room;
@@ -319,6 +296,16 @@ export type ResolversParentTypes = {
   Student: Student;
   StudentInput: StudentInput;
   StudentOptional: StudentOptional;
+  Studentv1: Studentv1;
+};
+
+export type AddressResolvers<ContextType = any, ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address']> = {
+  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  postalCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  province?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  street?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ClassResolvers<ContextType = any, ParentType extends ResolversParentTypes['Class'] = ResolversParentTypes['Class']> = {
@@ -392,12 +379,6 @@ export type InstructorResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addStudent?: Resolver<ResolversTypes['Student'], ParentType, ContextType, RequireFields<MutationAddStudentArgs, 'student'>>;
-  deleteStudent?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteStudentArgs, 'id'>>;
-  updateStudent?: Resolver<Maybe<ResolversTypes['Student']>, ParentType, ContextType, RequireFields<MutationUpdateStudentArgs, 'id' | 'student'>>;
-};
-
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   classes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Class']>>>, ParentType, ContextType>;
   countries?: Resolver<Maybe<Array<Maybe<ResolversTypes['Country']>>>, ParentType, ContextType>;
@@ -409,7 +390,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   rooms?: Resolver<Maybe<Array<Maybe<ResolversTypes['Room']>>>, ParentType, ContextType>;
   studentById?: Resolver<Maybe<ResolversTypes['Student']>, ParentType, ContextType, RequireFields<QueryStudentByIdArgs, 'id'>>;
   students?: Resolver<Maybe<Array<Maybe<ResolversTypes['Student']>>>, ParentType, ContextType>;
-  studentsWithFields?: Resolver<Array<Maybe<ResolversTypes['Student']>>, ParentType, ContextType, Partial<QueryStudentsWithFieldsArgs>>;
   studentsWithFilter?: Resolver<Array<Maybe<ResolversTypes['Student']>>, ParentType, ContextType, RequireFields<QueryStudentsWithFilterArgs, 'filter'>>;
 };
 
@@ -433,6 +413,15 @@ export type RoomResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type StudentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Student'] = ResolversParentTypes['Student']> = {
+  active?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  address?: Resolver<ResolversTypes['Address'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Studentv1Resolvers<ContextType = any, ParentType extends ResolversParentTypes['Studentv1'] = ResolversParentTypes['Studentv1']> = {
   city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dateOfBirth?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -447,15 +436,16 @@ export type StudentResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type Resolvers<ContextType = any> = {
+  Address?: AddressResolvers<ContextType>;
   Class?: ClassResolvers<ContextType>;
   Country?: CountryResolvers<ContextType>;
   Course?: CourseResolvers<ContextType>;
   Department?: DepartmentResolvers<ContextType>;
   Instructor?: InstructorResolvers<ContextType>;
-  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Registration?: RegistrationResolvers<ContextType>;
   Room?: RoomResolvers<ContextType>;
   Student?: StudentResolvers<ContextType>;
+  Studentv1?: Studentv1Resolvers<ContextType>;
 };
 

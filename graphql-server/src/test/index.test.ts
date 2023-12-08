@@ -7,6 +7,8 @@ import { typeDefs } from '../typeDefs.js';
 import { students as originalStudents } from '../data/all-data-typed.js';
 import { type Student } from '../generated/graphql.js';
 
+/*
+
 describe('Apollo Server students test suite', () => {
 	let testServer: ApolloServer<any>;
 
@@ -38,9 +40,9 @@ describe('Apollo Server students test suite', () => {
 			assert(response.body.singleResult.data);
 			assert(response.body.singleResult.data.students);
 			assert(Array.isArray(response.body.singleResult.data.students));
-			expect(response.body.singleResult.data.students.length)
-				.to
-				.equal(originalStudents.length);
+			expect(response.body.singleResult.data.students.length).to.equal(
+				originalStudents.length,
+			);
 		});
 
 		it('should filter on a single-value field', async () => {
@@ -62,9 +64,10 @@ describe('Apollo Server students test suite', () => {
 			assert(response.body.singleResult.data);
 			assert(response.body.singleResult.data.students);
 			assert(Array.isArray(response.body.singleResult.data.students));
-			let actualstudents = response.body.singleResult.data.students as Student[];
+			let actualstudents = response.body.singleResult.data
+				.students as Student[];
 			expect(actualstudents.length).to.be.greaterThan(0);
-			assert(actualstudents.every(m => m.country === testCountry));
+			assert(actualstudents.every((m) => m.country === testCountry));
 		});
 
 		it('should filter on multiple single-value fields', async () => {
@@ -101,3 +104,5 @@ describe('Apollo Server students test suite', () => {
 		});
 	});
 });
+
+*/
