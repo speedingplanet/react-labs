@@ -1,0 +1,15 @@
+.routing-container {
+	display: flex;
+}
+
+.routing-container > * {
+	flex: 1;
+}
+
+.left {
+	flex-basis: 30%;
+}
+
+.right {
+	flex-basis: 70%;
+}
